@@ -1,10 +1,55 @@
-body{
-    background-image:url(/img/6235598.jpg) ;
+@font-face {
+    font-family: 'retroGaming';
+    src: url('/font/Retro\ Gaming.ttf') format('truetype');
+  }
+
+body {
+    background-image: url('/img/6235598.jpg');
     background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
 }
-.navbar{
+#titulo{
+    color: #9900ff;
+    font-family: 'retroGaming';
+    font-size: 2.2em;
+    font-weight: bolder;
+    letter-spacing: 0.3em;
+    text-shadow: -1px -1px 0 rgb(255, 196, 0),  
+    1px -1px 0 rgb(255, 196, 0),  
+    -1px 1px 0 rgb(255, 196, 0),  
+    1px 1px 0 rgb(255, 196, 0);
+
+}
+
+.navbar {
     color: transparent;
+    border-bottom: 5px solid rgb(255, 196, 0);
+    border-top: 5px solid rgb(255, 196, 0);
+    position: relative; 
+    animation: cambio-color 10s infinite alternate; 
 }
+
+@keyframes cambio-color {
+    0% {
+        border-color: rgb(255, 196, 0);
+    }
+    10% {
+        border-color: #9900ff; 
+    }
+    50% {
+        border-color: rgb(255, 196, 0);
+    }
+    60% {
+        border-color: #9900ff; 
+    }
+    100% {
+        border-color: rgb(255, 196, 0); /
+    }
+}
+
 .navbar-toggler {
     background-color: aliceblue;
     display: none;
@@ -12,13 +57,61 @@ body{
 
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
-    /* Ocultar el elemento .navbar-brand */
     .navbar-brand {
         display: none;
     }
 
-    /* Mostrar el botón .navbar-toggler */
     .navbar-toggler {
         display: block;
     }
 }
+
+.gif-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    
+}
+#gifInicio{
+    width: 300px;
+    height: auto;
+}
+#gif{
+    margin-top: 10vh;
+}
+.botonJugar {
+    top: -200px;
+    cursor: pointer;
+    color: #909090 !important;
+    font-size: 20px;
+    font-family: 'retroGaming';
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: #9900ff;
+    position: relative;
+    border: 2px solid #318aac;
+    border-radius: 25px;
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, 0.4);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .botonJugar:hover {
+    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
+    outline-color: rgba(253, 253, 253, 0);
+    outline-offset: 80px;
+    text-shadow: 1px 1px 6px #000000; 
+  }
+
+footer{
+    top: -100px;
+    color: transparent;
+    border-bottom: 5px solid rgb(255, 196, 0);
+    border-top: 5px solid rgb(255, 196, 0);
+    position: relative;
+    
+    color: rgb(255, 196, 0);
+    animation: cambio-color 10s infinite alternate;
+}
+
