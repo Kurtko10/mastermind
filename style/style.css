@@ -1,0 +1,24 @@
+body{
+    background-image:url(/img/6235598.jpg) ;
+    background-size: cover;
+}
+.navbar{
+    color: transparent;
+}
+.navbar-toggler {
+    background-color: aliceblue;
+    display: none;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    /* Ocultar el elemento .navbar-brand */
+    .navbar-brand {
+        display: none;
+    }
+
+    /* Mostrar el botón .navbar-toggler */
+    .navbar-toggler {
+        display: block;
+    }
+}
