@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 #titulo{
     color: #9900ff;
@@ -158,6 +158,31 @@ body {
     text-shadow: 1px 1px 6px #000000; 
   }
 
+  .buttonFunction{
+    top: 0px;
+    margin-top: 1em;
+    cursor: pointer;
+    color: #909090 !important;
+    font-size: 16px;
+    font-family: 'retroGaming';
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: #9900ff;
+    position: relative;
+    border: 2px solid #318aac;
+    border-radius: 25px;
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, 0.4);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    margin-bottom: 2px;
+  }
+  .buttonFunction:hover{
+    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
+    outline-color: rgba(253, 253, 253, 0);
+    outline-offset: 80px;
+    text-shadow: 1px 1px 6px #000000; 
+  }
+
   #formularioUser{
     display: flex;
     max-width: 50%;
@@ -211,6 +236,48 @@ a{
 #labelUsuario{
     display: none;
 }
+}
+#masterMind{
+    background-color: rgba(240, 255, 255, 0.522);
+}
+#coloresElegidos{
+    display: flex;
+    max-width: 100%;
+    height: auto;
+    justify-content: center;
+    margin-bottom: 2em;
+
+}
+
+.color-box{
+    z-index: 1;
+    border: 2px solid rgb(0, 0, 0);
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    border-radius: 50%;
+}
+#coloresElegidos .color-box{
+    z-index: 1;
+    border: 2px solid rgb(0, 0, 0);
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    border-radius: 50%;
+}
+#saludo{
+    font-family: 'retroGaming';
+    text-align: center;
+    font-size: 1.5em;
+}
+#mensajeDificultad{
+    font-family: 'retroGaming';
+    text-align: center;
+    text-transform: uppercase;
+}
+.tablero{
+    justify-content: center;
+    align-items: center;
 }
 
 footer{
