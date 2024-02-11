@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'retroGaming';
-    src: url('/font/Retro\ Gaming.ttf') format('truetype');
+    src: url('./font/Retro\ Gaming.ttf') format('truetype');
   }
 
 body {
-    background-image: url('/img/6235598.jpg');
+    background-image: url('./img/6235598.jpg');
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -81,6 +81,9 @@ body {
 }
 .dropdown-menu{
     background-color: #9900ff;
+}
+.boton button a{
+    text-decoration: none;
 }
 
 .gif-button {
