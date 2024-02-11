@@ -71,6 +71,12 @@ body {
     .navbar-toggler {
         display: block;
     }
+    #formularioUser{
+        
+        max-width: 70%;
+        margin-left: 15%;
+       
+    }
 }
 #opciones{
     font-family: 'retroGaming';
@@ -162,6 +168,9 @@ body {
     padding: 1em;
     align-items: center;
 }
+a{
+    text-decoration: none;
+}
 #labelUsuario{
     
     font-family: 'retroGaming';
@@ -180,11 +189,28 @@ body {
 }
 #colorSelection{
     position: relative;
-    left: -30px;
+    /* left: -30px; */
     align-items: center;
 }
 #colorOptions input{
     border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    
+    #formularioUser{
+        
+        max-width: 95%;
+        margin-left: 2.5%;
+       
+    }
+    #colorOptions {
+    max-width: 60%;
+    margin-left: 20%;
+}
+#labelUsuario{
+    display: none;
+}
 }
 
 footer{
