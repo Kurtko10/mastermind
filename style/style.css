@@ -23,6 +23,13 @@ body {
     1px 1px 0 rgb(255, 196, 0);
 
 }
+@media (max-width: 600px) { 
+    #titulo {
+        font-size: 1em; 
+        margin: 0;
+    }
+}
+
 
 .navbar {
     color: transparent;
@@ -55,7 +62,7 @@ body {
     display: none;
 }
 
-/* Media query para pantallas más pequeñas */
+
 @media (max-width: 768px) {
     .navbar-brand {
         display: none;
@@ -64,6 +71,16 @@ body {
     .navbar-toggler {
         display: block;
     }
+}
+#opciones{
+    font-family: 'retroGaming';
+    text-shadow: -1px -1px 0 rgb(255, 255, 255),  
+    1px -1px 0 rgb(255, 255, 255),  
+    -1px 1px 0 rgb(255, 255, 255),  
+    1px 1px 0 rgb(255, 255, 255);
+}
+.dropdown-menu{
+    background-color: #9900ff;
 }
 
 .gif-button {
@@ -79,10 +96,38 @@ body {
     height: auto;
 }
 #gif{
+    position: relative;
     margin-top: 10vh;
+    max-width: 30%;
+    margin-left: 35%;
 }
 .botonJugar {
-    top: -200px;
+    
+    align-items: center;
+    cursor: pointer;
+    color: #909090 !important;
+    font-size: 20px;
+    font-family: 'retroGaming';
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: #9900ff;
+    
+    border: 2px solid #318aac;
+    border-radius: 25px;
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, 0.4);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .botonJugar:hover {
+    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
+    outline-color: rgba(253, 253, 253, 0);
+    outline-offset: 80px;
+    text-shadow: 1px 1px 6px #000000; 
+  }
+
+  .botonComenzar {
+    top: 0px;
+    margin-top: 1em;
     cursor: pointer;
     color: #909090 !important;
     font-size: 20px;
@@ -97,12 +142,47 @@ body {
     outline-color: rgba(255, 255, 255, 0.4);
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   }
-  .botonJugar:hover {
+  .botonComenzar:hover {
     box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
     outline-color: rgba(253, 253, 253, 0);
     outline-offset: 80px;
     text-shadow: 1px 1px 6px #000000; 
   }
+
+  #formularioUser{
+    display: flex;
+    max-width: 50%;
+    height: auto;
+    margin-left: 25%;
+    border: 3px outset yellow;
+    margin-top: 2em;
+    padding: 1em;
+    align-items: center;
+}
+#labelUsuario{
+    
+    font-family: 'retroGaming';
+    background-color: transparent;
+}
+#labelDificultad{
+    font-family: 'retroGaming';
+}
+#dificultad option {
+    font-family: 'retroGaming';
+}
+#usuario{
+    font-family: 'retroGaming';
+    font-size: 1.5em;
+    text-align: center;
+}
+#colorSelection{
+    position: relative;
+    left: -30px;
+    align-items: center;
+}
+#colorOptions input{
+    border-radius: 50%;
+}
 
 footer{
     top: -100px;
