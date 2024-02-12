@@ -205,6 +205,7 @@ body {
     text-shadow: 1px 1px 6px #000000; 
   }
 
+
   #formularioUser{
     display: flex;
     max-width: 50%;
@@ -323,6 +324,31 @@ a{
     text-align: center;
     font-weight: bold;
 }
+.ayuda{
+    color: white;
+    background-color: #909090bf;
+    border: yellow;
+    justify-content: center;
+}
+.ayuda h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'retroGaming';
+    color: #480079;
+}
+
+.ayuda .row div {
+    border: 1px solid #ccc; 
+    padding: 20px; 
+  }
+  
+
+  .ayuda .row div {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+  }
 
 
 footer{
