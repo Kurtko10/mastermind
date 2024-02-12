@@ -8,15 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Dificultad:", dificultad);
   console.log("Colores elegidos:", colors);
 
+  // Obtener tablero de juego
   const tableroJuego = document.getElementById("juegoMastermind");
-  //const coloresElegidos = document.getElementById("coloresElegidos");
+
 
   // Array para almacenar los colores seleccionados en cada fila del tablero
   const coloresSeleccionados = [];
 
+  // Índice de la fila actual del tablero
   let filaActualIndex = 0;
+
+  //Array para la combinación aleatoria 
   let combinacionSecreta = [];
-  //let primeraFilaCompleta = false;
+
 
   // Función para generar una combinación aleatoria de colores
   const generarCombinacionAleatoria = () => {
@@ -26,11 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  //generar una combinación aleatoria de colores
   generarCombinacionAleatoria();
   console.log("combinacion secreta", combinacionSecreta);
 
+  // Mostrar el nombre de usuario y los colores seleccionados
   const mostrarDatosSesion = () => {
-    // Mostrar el nombre de usuario y los colores seleccionados
+    
     const infoSesion = document.createElement("div");
     infoSesion.innerHTML = `
             <h2 id="saludo">¡Bienvenido, ${usuario}!</h2>
@@ -49,11 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     tableroJuego.appendChild(infoSesion);
   };
-
   mostrarDatosSesion();
 
   // Construir el tablero de juego
   const construirTablero = () => {
+
     // Crear el contenedor del tablero
     const tableroElement = document.createElement("div");
     tableroElement.classList.add("tablero");
@@ -71,18 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "d-flex",
         "justify-content-center"
       );
+
       for (let j = 0; j < columnasPorFila; j++) {
         const colorBox = document.createElement("div");
         colorBox.classList.add("color-box");
         intentoTablero.appendChild(colorBox);
       }
+
       // Agregar el intento al contenedor del tablero
       tableroElement.appendChild(intentoTablero);
     }
 
     // Agregar el contenedor del tablero al tablero de juego
     tableroJuego.appendChild(tableroElement);
-    // Comprobar en consola si pinta los div
+
+    // Comprobación en consola si pinta los div
     console.log("Pintando colores elegidos");
     console.log("Creando tablero para", dificultad);
   };
@@ -109,7 +118,7 @@ const marcarSeleccionUsuario = (color, filaActual) => {
       coloresSeleccionados[rowIndex].push(color);
 
       // llamamos a la función de verificar
-      verificarFilaCompleta();
+      setTimeout(verificarFilaCompleta, 100); 
       break; // detienee el bucle cuando se marca un color
     }
   }
@@ -120,11 +129,13 @@ const verificarFilaCompleta = () => {
   const filaActual = document.querySelector(`.attempt.row-${filaActualIndex}`);
   const columnas = filaActual.querySelectorAll(".color-box");
   let filaCompleta = true;
+  
   columnas.forEach((columna) => {
     if (!columna.style.backgroundColor) {
       filaCompleta = false;
     }
   });
+
   if (filaCompleta) {
     // Mostrar mensaje indicando que la fila está completa y sugiriendo pulsar el botón de comprobar
     console.log("Fila completa. Pulsa el botón 'Comprobar' para verificar tu combinación.");
@@ -143,45 +154,36 @@ const verificarFilaCompleta = () => {
       document.querySelector(`.attempt.row-${filaActualIndex}`)
     );
     console.log(`Has elegido el color ${selectedColor}`);
+   
   };
 
   elementosColor.forEach((elemento) => {
     elemento.addEventListener("click", marcarColorFilaActual);
   });
 
-  // Función para comprobar la combinación del usuario
+
+// Función para abrir el modal
+const abrirModal = () => {
+  const myModal = new bootstrap.Modal(document.getElementById('hasGanadoModal'));
+  myModal.show();
+};
+
+// Función para comprobar la combinación del usuario
 const comprobarCombinacionUsuario = () => {
   const combinacionUsuario = coloresSeleccionados[filaActualIndex];
   // Verificar si la combinacionUsuario es un array
   if (Array.isArray(combinacionUsuario)) {
-    const resultado = compararCombinaciones(
-      
-      combinacionUsuario,
-      combinacionSecreta
-    );
+    const resultado = compararCombinaciones(combinacionUsuario, combinacionSecreta);
     console.log(combinacionUsuario);
     console.log("Resultado:", resultado);
 
-// Verificar si el usuario ha ganado
-if (resultado.aciertos === 4) {
-  // Cargar el contenido del modal desde modalVictoria.html
-  fetch('modalVictoria.html')
-    .then(response => response.text())
-    .then(html => {
-      const modalContainer = document.createElement('div');
-      modalContainer.innerHTML = html;
-      const modal = modalContainer.querySelector('.modal');
-
-      document.body.appendChild(modal);
-      const modalInstance = new bootstrap.Modal(modal);
-      // Mostrar el modal
-      modalInstance.show();
-    });
-}
-  } else {
-    console.log("Error: combinacionUsuario no es un array válido");
+    // Verificar si el usuario ha ganado
+    if (resultado.aciertos === 4) {
+      abrirModal(); // Llamar a la función para abrir el modal
+    } 
   }
 };
+
 
 // Función para comparar las combinaciones del usuario y la combinación secreta
 const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {

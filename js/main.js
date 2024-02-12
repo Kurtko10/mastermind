@@ -1,6 +1,5 @@
 const mastermind = () => {
 
-  
   const form = document.getElementById("mastermindForm");
   const dificultadSelect = document.getElementById("dificultad");
   const colorSelection = document.getElementById("colorSelection");
@@ -15,6 +14,7 @@ const mastermind = () => {
     "#00FFFF",
     "#FFA500",
   ];
+
   // Crear opciones de color según la dificultad seleccionada
   const createColorOption = (count) => {
     const colores = mezclarColores(colors);
@@ -28,10 +28,12 @@ const mastermind = () => {
       colorOptions.appendChild(colorInput);
     }
   };
+
   // Función para mezclar aleatoriamente
   const mezclarColores = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
+
 // Función para verificar la validez del color seleccionado
 const validacionColores = (event) => {
     const coloresSeleccionados = event.target.value;
@@ -50,6 +52,7 @@ const validacionColores = (event) => {
       event.target.setCustomValidity("");
     }
   };
+
   // Función para verificar si el color ya ha sido seleccionado
   const verificarColores = (color) => {
     const colorInputs = colorOptions.querySelectorAll('input[type="color"]');
@@ -60,6 +63,7 @@ const validacionColores = (event) => {
     }
     return false;
   };
+
   // Manejar el envío del formulario
   form.addEventListener("submit", (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe
@@ -68,10 +72,12 @@ const validacionColores = (event) => {
     const colors = Array.from(
       colorOptions.querySelectorAll('input[type="color"]')
     ).map((input) => input.value);
+
     // Guardar la selección en la sesión
     sessionStorage.setItem("usuario", usuario);
     sessionStorage.setItem("dificultad", dificultad);
     sessionStorage.setItem("colors", JSON.stringify(colors));
+
     // Redireccionar al jugador a la pantalla de juego
     window.location.href = "game.html";
     console.log("usuario"); 
@@ -91,5 +97,5 @@ const validacionColores = (event) => {
   });
   
 };
-// Iniciar la función al cargar la página
+
 window.addEventListener("load", mastermind);
