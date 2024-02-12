@@ -11,6 +11,7 @@ Este proyecto es una implementación para una tarea formativa del clásico juego
   - [Instrucciones de Uso](#instrucciones-de-uso)
   - [Estructura del Proyecto](#estructura-del-proyecto)
   - [Tecnologías Utilizadas](#tecnologías-utilizadas)
+  - [Demo](#demo)
   - [Fuentes de Contenido](#fuentes-de-contenido)
   - [Implantación](#implantación)
   - [Capturas de Pantalla](#capturas-de-pantalla)
@@ -51,6 +52,13 @@ Este proyecto es una implementación para una tarea formativa del clásico juego
 - ![CSS](https://img.shields.io/badge/CSS-3-blue)Lenguaje de estilo para el diseño y la apariencia.
 - ![JS](https://img.shields.io/badge/logo-javascript-blue?logo=javascript) Lenguaje de programación para la funcionalidad interactiva.
 - ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple) Framework CSS para el desarrollo rápido y la creación de interfaces responsivas.
+
+## <ins>Demo</ins>
+
+-  [Enlace a la demo en vivo](https://kurtko10.github.io/mastermind/)🚀  
+
+-  [Repo](https://github.com/Kurtko10/mastermind)👨🏽‍💻
+
 
 ## <ins>Fuentes de Contenido</ins>
 
