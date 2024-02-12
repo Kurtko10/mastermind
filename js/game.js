@@ -164,7 +164,9 @@ const verificarFilaCompleta = () => {
 
 // Función para abrir el modal
 const abrirModal = () => {
-  const myModal = new bootstrap.Modal(document.getElementById('hasGanadoModal'));
+  const myModal = new bootstrap.Modal(document.getElementById('hasGanadoModal'), {
+    backdrop: 'static'
+  });
   myModal.show();
 };
 
