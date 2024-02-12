@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tableroJuego = document.getElementById("juegoMastermind");
   const coloresElegidos = document.getElementById("coloresElegidos");
 
-  // Array bidimensional para almacenar los colores seleccionados en cada fila del tablero
+  // Array para almacenar los colores seleccionados en cada fila del tablero
   const coloresSeleccionados = [];
 
   let filaActualIndex = 0;
@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
         elemento.removeEventListener("click", marcarColorPrimeraFila);
       });
 
-      // Aquí puedes agregar un log del array coloresSeleccionados
       console.log("Colores seleccionados:", coloresSeleccionados);
       console.log("Primera fila completa");
     }
@@ -165,13 +164,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const combinacionUsuario = coloresSeleccionados[filaActualIndex]; // Obtener la combinación de la fila actual
+    const combinacionUsuario = coloresSeleccionados[filaActualIndex]; 
     const resultado = compararCombinaciones(
       combinacionUsuario,
       combinacionSecreta
     );
-
-    // Mostrar el resultado por consola
     console.log("Resultado:", resultado);
 
     // Verificar si el usuario ha ganado
@@ -217,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Calcular fallos
     resultado.fallos = 4 - resultado.aciertos - resultado.coincidencias;
 
-    // Construir el mensaje
+    // Mensaje para consola
     let mensaje = "";
     mensaje += `Mismo color y misma posición: ${resultado.aciertos}, `;
     mensaje += `El color está en la combinación secreta pero fuera de posición: ${resultado.coincidencias}, `;
@@ -241,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         elemento.addEventListener("click", marcarColorPrimeraFila);
       });
     } else {
-      // Se ha llenado el tablero, implementa la lógica de finalización del juego
+        console.log('Has Perdido');
     }
   };
 
