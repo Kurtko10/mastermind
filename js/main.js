@@ -28,7 +28,7 @@ const mastermind = () => {
       colorOptions.appendChild(colorInput);
     }
   };
-  // Función para mezclar aleatoriamente un arreglo
+  // Función para mezclar aleatoriamente
   const mezclarColores = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
