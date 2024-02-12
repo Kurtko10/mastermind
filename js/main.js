@@ -3,7 +3,6 @@ const mastermind = () => {
   const dificultadSelect = document.getElementById("dificultad");
   const colorSelection = document.getElementById("colorSelection");
   const colorOptions = document.getElementById("colorOptions");
-
   // Colores disponibles
   const colors = [
     "#FF0000",
@@ -14,7 +13,6 @@ const mastermind = () => {
     "#00FFFF",
     "#FFA500",
   ];
-
   // Crear opciones de color según la dificultad seleccionada
   const createColorOption = (count) => {
     const colores = mezclarColores(colors);
@@ -28,16 +26,13 @@ const mastermind = () => {
       colorOptions.appendChild(colorInput);
     }
   };
-
   // Función para mezclar aleatoriamente un arreglo
   const mezclarColores = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
-
 // Función para verificar la validez del color seleccionado
 const validacionColores = (event) => {
     const coloresSeleccionados = event.target.value;
-  
     // Verificar si el color es negro
     if (coloresSeleccionados === "#000000") {
       event.target.setCustomValidity("No se puede seleccionar el color negro");
@@ -53,8 +48,6 @@ const validacionColores = (event) => {
       event.target.setCustomValidity("");
     }
   };
-  
-
   // Función para verificar si el color ya ha sido seleccionado
   const verificarColores = (color) => {
     const colorInputs = colorOptions.querySelectorAll('input[type="color"]');
@@ -65,31 +58,25 @@ const validacionColores = (event) => {
     }
     return false;
   };
-
   // Manejar el envío del formulario
   form.addEventListener("submit", (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe
-
     const usuario = document.getElementById("usuario").value;
     const dificultad = dificultadSelect.value;
     const colors = Array.from(
       colorOptions.querySelectorAll('input[type="color"]')
     ).map((input) => input.value);
-
     // Guardar la selección en la sesión
     sessionStorage.setItem("usuario", usuario);
     sessionStorage.setItem("dificultad", dificultad);
     sessionStorage.setItem("colors", JSON.stringify(colors));
-
     // Redireccionar al usuario a la pantalla de juego
     window.location.href = "game.html";
     console.log("usuario"); 
   });
-
   // Mostrar la sección de selección de colores cuando se selecciona una dificultad
   dificultadSelect.addEventListener("change", () => {
     colorOptions.innerHTML = ""; // Limpiar opciones anteriores
-
     if (dificultadSelect.value === "principiante") {
       createColorOption(4);
     } else if (dificultadSelect.value === "intermedio") {
@@ -97,11 +84,9 @@ const validacionColores = (event) => {
     } else if (dificultadSelect.value === "experto") {
       createColorOption(6);
     }
-
     // Mostrar la sección de selección de colores
     colorSelection.style.display = "block";
   });
 };
-
 // Iniciar la función al cargar la página
 window.addEventListener("load", mastermind);

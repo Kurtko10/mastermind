@@ -248,6 +248,9 @@ a{
     margin-bottom: 2em;
 
 }
+#coloresElegidos .color-box:hover{
+    border: 3px white solid;
+}
 
 .color-box{
     z-index: 1;
