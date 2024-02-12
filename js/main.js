@@ -1,4 +1,6 @@
 const mastermind = () => {
+
+  
   const form = document.getElementById("mastermindForm");
   const dificultadSelect = document.getElementById("dificultad");
   const colorSelection = document.getElementById("colorSelection");
@@ -70,13 +72,13 @@ const validacionColores = (event) => {
     sessionStorage.setItem("usuario", usuario);
     sessionStorage.setItem("dificultad", dificultad);
     sessionStorage.setItem("colors", JSON.stringify(colors));
-    // Redireccionar al usuario a la pantalla de juego
+    // Redireccionar al jugador a la pantalla de juego
     window.location.href = "game.html";
     console.log("usuario"); 
   });
   // Mostrar la sección de selección de colores cuando se selecciona una dificultad
   dificultadSelect.addEventListener("change", () => {
-    colorOptions.innerHTML = ""; // Limpiar opciones anteriores
+    colorOptions.innerHTML = ""; 
     if (dificultadSelect.value === "principiante") {
       createColorOption(4);
     } else if (dificultadSelect.value === "intermedio") {
@@ -87,6 +89,7 @@ const validacionColores = (event) => {
     // Mostrar la sección de selección de colores
     colorSelection.style.display = "block";
   });
+  
 };
 // Iniciar la función al cargar la página
 window.addEventListener("load", mastermind);

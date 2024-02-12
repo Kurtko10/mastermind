@@ -133,6 +133,28 @@ body {
     outline-offset: 80px;
     text-shadow: 1px 1px 6px #000000; 
   }
+  .botonModal{
+    align-items: center;
+    cursor: pointer;
+    color: #909090 !important;
+    font-size: 12px;
+    font-family: 'retroGaming';
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: #9900ff;
+    
+    border: 2px solid #318aac;
+    border-radius: 25px;
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, 0.4);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .botonModal:hover {
+    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
+    outline-color: rgba(253, 253, 253, 0);
+    outline-offset: 80px;
+    text-shadow: 1px 1px 6px #000000; 
+  }
 
   .botonComenzar {
     top: 0px;
@@ -282,6 +304,26 @@ a{
     justify-content: center;
     align-items: center;
 }
+.modal-dialog{
+    
+    border: 3px outset yellow;
+}
+.modal-content{
+    background-color: rgba(184, 183, 183, 0.946);
+}
+#hasGanadoModalLabel{
+    font-family: 'retroGaming';
+    text-align: center;
+    font-size: 1.5em;
+}
+.fallos{
+    border: 6px solid black;
+}
+.coincidencia,.acertado{
+    text-align: center;
+    font-weight: bold;
+}
+
 
 footer{
     top: -100px;

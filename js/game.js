@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Colores elegidos:", colors);
 
   const tableroJuego = document.getElementById("juegoMastermind");
-  const coloresElegidos = document.getElementById("coloresElegidos");
+  //const coloresElegidos = document.getElementById("coloresElegidos");
 
   // Array para almacenar los colores seleccionados en cada fila del tablero
   const coloresSeleccionados = [];
 
   let filaActualIndex = 0;
   let combinacionSecreta = [];
-  let primeraFilaCompleta = false;
+  //let primeraFilaCompleta = false;
 
   // Función para generar una combinación aleatoria de colores
   const generarCombinacionAleatoria = () => {
@@ -90,173 +90,214 @@ document.addEventListener("DOMContentLoaded", () => {
   // Llama a la función para construir el tablero de juego
   construirTablero();
 
-  // Función para marcar la selección del usuario en el tablero
+// Función para marcar la selección del usuario en el tablero
+const marcarSeleccionUsuario = (color, filaActual) => {
+  const columnas = filaActual.querySelectorAll(".color-box");
 
-  const marcarSeleccionUsuario = (color, filaActual) => {
-    const columnas = filaActual.querySelectorAll(".color-box");
+  // Buscar la primera columna vacía en la fila y pintar el color seleccionado
+  for (let i = 0; i < columnas.length; i++) {
+    const columna = columnas[i];
+    if (!columna.style.backgroundColor) {
+      columna.style.backgroundColor = color;
 
-    // Buscar la primera columna vacía en la fila y pintar el color seleccionado
-    for (let i = 0; i < columnas.length; i++) {
-      const columna = columnas[i];
-      if (!columna.style.backgroundColor) {
-        columna.style.backgroundColor = color;
-        // Agregar el color seleccionado al array de la fila actual
-        const rowIndex = parseInt(filaActual.classList[1].split("-")[1]); // Obtener el índice de la fila
-        if (!coloresSeleccionados[rowIndex]) {
-          coloresSeleccionados[rowIndex] = []; // Si no hay un array para esta fila, crearlo
-        }
-        coloresSeleccionados[rowIndex].push(color);
-        break; // Detener el bucle cuando se marca un color
+      // Obtener el índice de la fila
+      const rowIndex = parseInt(filaActual.classList[1].split("-")[1]);
+      // Agregar el color seleccionado al array de la fila actual
+      if (!coloresSeleccionados[rowIndex]) {
+        coloresSeleccionados[rowIndex] = [];
       }
+      coloresSeleccionados[rowIndex].push(color);
+
+      // llamamos a la función de verificar
+      verificarFilaCompleta();
+      break; // detienee el bucle cuando se marca un color
     }
-    // Verificar si la fila está completa después de marcar el color
-    verificarFilaCompleta();
-  };
+  }
+};
 
-  // Función para verificar si la primera fila está completa
-
-  const verificarFilaCompleta = () => {
-    const filaActual = document.querySelector(".attempt.row-0");
-    const columnas = filaActual.querySelectorAll(".color-box");
-    let filaCompleta = true;
-    columnas.forEach((columna) => {
-      if (!columna.style.backgroundColor) {
-        filaCompleta = false;
-      }
-    });
-    if (filaCompleta) {
-      primeraFilaCompleta = true;
-      // Desactivar el evento de click para los colores
-      elementosColor.forEach((elemento) => {
-        elemento.removeEventListener("click", marcarColorPrimeraFila);
-      });
-
-      console.log("Colores seleccionados:", coloresSeleccionados);
-      console.log("Primera fila completa");
+// Función para verificar si la fila está completa
+const verificarFilaCompleta = () => {
+  const filaActual = document.querySelector(`.attempt.row-${filaActualIndex}`);
+  const columnas = filaActual.querySelectorAll(".color-box");
+  let filaCompleta = true;
+  columnas.forEach((columna) => {
+    if (!columna.style.backgroundColor) {
+      filaCompleta = false;
     }
-  };
+  });
+  if (filaCompleta) {
+    // Mostrar mensaje indicando que la fila está completa y sugiriendo pulsar el botón de comprobar
+    console.log("Fila completa. Pulsa el botón 'Comprobar' para verificar tu combinación.");
+    alert('FIla completa, pulsa comprobar');
+  }
+};
 
-  // Agregar evento onclick a los elementos de color solo para la primera fila
-  const elementosColor = document.querySelectorAll(
-    ".color-box.coloresElegidos"
-  );
+  // Agregar evento onclick a los elementos de color
+  const elementosColor = document.querySelectorAll(".color-box.coloresElegidos");
 
-  const marcarColorPrimeraFila = (event) => {
-    if (!primeraFilaCompleta) {
-      const colorIndex = parseInt(event.target.id.split("-")[1]) - 1;
-      const selectedColor = colors[colorIndex];
-      marcarSeleccionUsuario(
-        selectedColor,
-        document.querySelector(".attempt.row-0")
-      );
-      console.log(`Has elegido el color ${selectedColor}`);
-    }
+  const marcarColorFilaActual = (event) => {
+    const colorIndex = parseInt(event.target.id.split("-")[1]) - 1;
+    const selectedColor = colors[colorIndex];
+    marcarSeleccionUsuario(
+      selectedColor,
+      document.querySelector(`.attempt.row-${filaActualIndex}`)
+    );
+    console.log(`Has elegido el color ${selectedColor}`);
   };
 
   elementosColor.forEach((elemento) => {
-    elemento.addEventListener("click", marcarColorPrimeraFila);
+    elemento.addEventListener("click", marcarColorFilaActual);
   });
 
   // Función para comprobar la combinación del usuario
-  const comprobarCombinacionUsuario = () => {
-    if (!primeraFilaCompleta) {
-      console.log("Primero completa la primera fila.");
-      return;
-    }
-
-    const combinacionUsuario = coloresSeleccionados[filaActualIndex]; 
+const comprobarCombinacionUsuario = () => {
+  const combinacionUsuario = coloresSeleccionados[filaActualIndex];
+  // Verificar si la combinacionUsuario es un array
+  if (Array.isArray(combinacionUsuario)) {
     const resultado = compararCombinaciones(
+      
       combinacionUsuario,
       combinacionSecreta
     );
+    console.log(combinacionUsuario);
     console.log("Resultado:", resultado);
 
-    // Verificar si el usuario ha ganado
-    if (resultado.aciertos === 4) {
-      alert("¡Has ganado!");
-      reiniciarJuego();
-    } else {
-      // Avanzar a la siguiente fila
-      avanzarSiguienteFila();
-    }
+// Verificar si el usuario ha ganado
+if (resultado.aciertos === 4) {
+  // Cargar el contenido del modal desde modalVictoria.html
+  fetch('modalVictoria.html')
+    .then(response => response.text())
+    .then(html => {
+      const modalContainer = document.createElement('div');
+      modalContainer.innerHTML = html;
+      const modal = modalContainer.querySelector('.modal');
+
+      document.body.appendChild(modal);
+      const modalInstance = new bootstrap.Modal(modal);
+      // Mostrar el modal
+      modalInstance.show();
+    });
+}
+  } else {
+    console.log("Error: combinacionUsuario no es un array válido");
+  }
+};
+
+// Función para comparar las combinaciones del usuario y la combinación secreta
+const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
+  const resultado = {
+    aciertos: 0,
+    coincidencias: 0,
+    fallos: 0,
+    aciertosArray: [],
+    coincidenciasArray: [],
+    fallosArray: [],
   };
 
-  // Función para comparar las combinaciones del usuario y la combinación secreta
-  const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
-    const resultado = {
-      aciertos: 0,
-      coincidencias: 0,
-      fallos: 0,
-    };
+  // Crear copias de las combinaciones para no modificar las originales
+  const copiaUsuario = [...combinacionUsuario];
+  const copiaSecreta = [...combinacionSecreta];
 
-    // Crear copias de las combinaciones para no modificar las originales
-    const copiaUsuario = [...combinacionUsuario];
-    const copiaSecreta = [...combinacionSecreta];
-
-    // Verificar aciertos
-    for (let i = 0; i < copiaUsuario.length; i++) {
-      if (copiaUsuario[i] === copiaSecreta[i]) {
-        resultado.aciertos++;
-        // Si hay un acierto, eliminamos el color de ambas combinaciones para no contar las coincidencias y fallos para este color
-        copiaUsuario[i] = null;
-        copiaSecreta[i] = null;
-      }
+  // Verificar aciertos
+  for (let i = 0; i < copiaUsuario.length; i++) {
+    if (copiaUsuario[i] === copiaSecreta[i]) {
+      resultado.aciertos++;
+      resultado.aciertosArray.push(i);
+      copiaUsuario[i] = null;
+      copiaSecreta[i] = null;
     }
+  }
 
-    // Verificar coincidencias
-    for (let color of copiaUsuario) {
-      if (color !== null && copiaSecreta.includes(color)) {
-        resultado.coincidencias++;
-        copiaSecreta[copiaSecreta.indexOf(color)] = null; // Eliminamos el color coincidente de la combinación secreta
-      }
+  // Verificar coincidencias
+  for (let color of copiaUsuario) {
+    if (color !== null && copiaSecreta.includes(color)) {
+      resultado.coincidencias++;
+      resultado.coincidenciasArray.push(copiaSecreta.indexOf(color)); 
+      copiaSecreta[copiaSecreta.indexOf(color)] = null; 
     }
+  }
 
-    // Calcular fallos
-    resultado.fallos = 4 - resultado.aciertos - resultado.coincidencias;
+  // Calcular fallos
+  resultado.fallos = 4 - resultado.aciertos - resultado.coincidencias;
+  for (let i = 0; i < resultado.fallos; i++) {
+    resultado.fallosArray.push(i); // Guardamos el índice del color fallo
+  }
 
-    // Mensaje para consola
-    let mensaje = "";
-    mensaje += `Mismo color y misma posición: ${resultado.aciertos}, `;
-    mensaje += `El color está en la combinación secreta pero fuera de posición: ${resultado.coincidencias}, `;
-    mensaje += `Color fallado: ${resultado.fallos}.`;
-    return resultado;
-  };
+  // Mensajes para consola
+  let mensaje = "";
+  mensaje += `Mismo color y misma posición: ${resultado.aciertos}, `;
+  mensaje += `El color está en la combinación secreta pero fuera de posición: ${resultado.coincidencias}, `;
+  mensaje += `Color fallado: ${resultado.fallos}.`;
+  return resultado;
+};
 
-  const avanzarSiguienteFila = () => {
-    const filas = document.querySelectorAll(".attempt");
-    if (filaActualIndex < filas.length - 1) {
-      // Reiniciar el array de colores seleccionados
-      coloresSeleccionados[filaActualIndex] = [];
+const avanzarSiguienteFila = () => {
+  const filaActual = document.querySelector(`.attempt.row-${filaActualIndex}`);
+  const columnas = filaActual.querySelectorAll(".color-box");
+  const resultadoComparacion = compararCombinaciones(coloresSeleccionados[filaActualIndex], combinacionSecreta);
 
-      // Avanzar a la siguiente fila
-      filaActualIndex++;
-      const filaActual = filas[filaActualIndex];
-      console.log("avanzamos a fila", filaActual);
-
-      // Permitir al usuario seleccionar colores en la nueva fila
-      elementosColor.forEach((elemento) => {
-        elemento.addEventListener("click", marcarColorPrimeraFila);
-      });
-    } else {
-        console.log('Has Perdido');
+  // Actualizar visualmente la fila actual
+  for (let i = 0; i < columnas.length; i++) {
+    const columna = columnas[i];
+    columna.classList.remove("acertado", "coincidencia", "fallos");
+    
+    // Si el color está acertado, se pinta con un OK
+    if (resultadoComparacion.aciertosArray.includes(i)) {
+      columna.textContent = "OK";
+      columna.classList.add("acertado");
+    } 
+    //Marca acierto fduera de posición
+    else if (resultadoComparacion.coincidenciasArray.includes(i)) {
+      columna.textContent = "?";
+      columna.classList.add("coincidencia");
+    } 
+    // Si el color es un fallo, se pinta con un borde negro
+    else if (resultadoComparacion.fallosArray.includes(i)) {
+      columna.classList.add("fallos");
     }
-  };
+  }
 
-  // Event listeners para los botones
-  const comprobarButton = document.getElementById("comprobar");
+  // Avanzar a la siguiente fila si no es la última
+  if (filaActualIndex < 9) { 
+    // Eliminar los event listeners de los elementos de color
+    elementosColor.forEach((elemento) => {
+      elemento.removeEventListener("click", marcarColorFilaActual);
+    });
+    // Reiniciar los colores seleccionados para la nueva fila
+    coloresSeleccionados[filaActualIndex] = [];
+    // Avanzar a la siguiente fila
+    filaActualIndex++;
+    // Permite al usuario seleccionar colores en la nueva fila
+    elementosColor.forEach((elemento) => {
+      elemento.addEventListener("click", marcarColorFilaActual);
+    });
+  } else {
+    // mostrar un mensaje de fin del juego
+    alert('FIN DEL JUEGO');
+    console.log("Has completado todas las filas");
+    // Redirigir al usuario a la vista usuario.html
+
+    window.location.href = '../index.html';
+  }
+};
+
+
+// Event listener para el botón de comprobar
+const comprobarButton = document.getElementById("comprobar");
+comprobarButton.addEventListener("click", () => {
+  // Verificar la combinación del usuario cuando se presione el botón de comprobar
+  comprobarCombinacionUsuario();
+  // Avanzar a la siguiente fila después de la comprobación
+  avanzarSiguienteFila();
+});
+
+  // Event listener para el botón de reiniciar
   const reiniciarButton = document.getElementById("reiniciar");
-
-  comprobarButton.addEventListener("click", () => {
-    comprobarCombinacionUsuario();
-    avanzarSiguienteFila();
-  });
-
   reiniciarButton.addEventListener("click", () => {
     // Reiniciar el juego
     location.reload();
   });
-  // Función para reiniciar el juego
-  const reiniciarJuego = () => {
-    location.reload();
-  };
+
+
 });
+
