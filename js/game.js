@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let combinacionSecreta = [];
 
 
+  let filaCompleta = false;
+
   // Función para generar una combinación aleatoria de colores
   const generarCombinacionAleatoria = () => {
     for (let i = 0; i < 4; i++) {
@@ -128,7 +130,7 @@ const marcarSeleccionUsuario = (color, filaActual) => {
 const verificarFilaCompleta = () => {
   const filaActual = document.querySelector(`.attempt.row-${filaActualIndex}`);
   const columnas = filaActual.querySelectorAll(".color-box");
-  let filaCompleta = true;
+  filaCompleta = true;
   
   columnas.forEach((columna) => {
     if (!columna.style.backgroundColor) {
@@ -187,7 +189,6 @@ const comprobarCombinacionUsuario = () => {
 };
 
 
-// Función para comparar las combinaciones del usuario y la combinación secreta
 const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
   const resultado = {
     aciertos: 0,
@@ -209,15 +210,28 @@ const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
       resultado.aciertosArray.push(i);
       copiaUsuario[i] = null;
       copiaSecreta[i] = null;
+
+      console.log(`Fila ${filaActualIndex}, Columna ${i}: Color ${combinacionUsuario[i]} - ACIERTO`);
+      
     }
+  }
+
+  // Map para realizar un seguimiento de la frecuencia de cada color en la combinación secreta
+  const mapaColores = new Map();
+  for (let color of copiaSecreta) {
+    mapaColores.set(color, mapaColores.has(color) ? mapaColores.get(color) + 1 : 1);
   }
 
   // Verificar coincidencias
   for (let color of copiaUsuario) {
-    if (color !== null && copiaSecreta.includes(color)) {
+    if (color !== null && mapaColores.has(color) && mapaColores.get(color) > 0) {
       resultado.coincidencias++;
-      resultado.coincidenciasArray.push(copiaSecreta.indexOf(color)); 
-      copiaSecreta[copiaSecreta.indexOf(color)] = null; 
+      resultado.coincidenciasArray.push(copiaSecreta.indexOf(color));
+      copiaSecreta[copiaSecreta.indexOf(color)] = null;
+      mapaColores.set(color, mapaColores.get(color) - 1);
+
+       // Agregar mensaje a la consola para indicar una coincidencia
+       console.log(`Fila ${filaActualIndex}, Color ${color} - COINCIDENCIA`);
     }
   }
 
@@ -226,6 +240,10 @@ const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
   for (let i = 0; i < resultado.fallos; i++) {
     resultado.fallosArray.push(i); // Guardamos el índice del color fallo
   }
+   // Agregar mensajes de registro para los fallos
+   resultado.fallosArray.forEach((indice) => {
+    console.log(`Fila ${filaActualIndex}, Columna ${indice}: Color ${combinacionUsuario[indice]} - FALLO`);
+  });
 
   // Mensajes para consola
   let mensaje = "";
@@ -235,31 +253,12 @@ const compararCombinaciones = (combinacionUsuario, combinacionSecreta) => {
   return resultado;
 };
 
+
 const avanzarSiguienteFila = () => {
   const filaActual = document.querySelector(`.attempt.row-${filaActualIndex}`);
   const columnas = filaActual.querySelectorAll(".color-box");
   const resultadoComparacion = compararCombinaciones(coloresSeleccionados[filaActualIndex], combinacionSecreta);
 
-  // Actualizar visualmente la fila actual
-  for (let i = 0; i < columnas.length; i++) {
-    const columna = columnas[i];
-    columna.classList.remove("acertado", "coincidencia", "fallos");
-    
-    // Si el color está acertado, se pinta con un OK
-    if (resultadoComparacion.aciertosArray.includes(i)) {
-      columna.textContent = "OK";
-      columna.classList.add("acertado");
-    } 
-    //Marca acierto fduera de posición
-    else if (resultadoComparacion.coincidenciasArray.includes(i)) {
-      columna.textContent = "?";
-      columna.classList.add("coincidencia");
-    } 
-    // Si el color es un fallo, se pinta con un borde negro
-    else if (resultadoComparacion.fallosArray.includes(i)) {
-      columna.classList.add("fallos");
-    }
-  }
 
   // Avanzar a la siguiente fila si no es la última
   if (filaActualIndex < 9) { 
@@ -283,16 +282,40 @@ const avanzarSiguienteFila = () => {
 
     window.location.href = '../index.html';
   }
+  
+  // Actualizar visualmente la fila actual
+  for (let i = 0; i < columnas.length; i++) {
+    const columna = columnas[i];
+    columna.classList.remove("acertado", "coincidencia", "fallos");
+    
+    // Si el color está acertado, se pinta con un OK
+    if (resultadoComparacion.aciertosArray.includes(i)) {
+      columna.textContent = "OK";
+      columna.classList.add("acertado");
+    } 
+    //Marca acierto fduera de posición
+    else if (resultadoComparacion.coincidenciasArray.includes(i)) {
+      columna.textContent = "?";
+      columna.classList.add("coincidencia");
+    } 
+    // Si el color es un fallo, se pinta con un borde negro
+    else if (resultadoComparacion.fallosArray.includes(i)) {
+      columna.classList.add("fallos");
+    }
+  }
 };
 
 
 // Event listener para el botón de comprobar
 const comprobarButton = document.getElementById("comprobar");
 comprobarButton.addEventListener("click", () => {
-  // Verificar la combinación del usuario cuando se presione el botón de comprobar
+if(filaCompleta === true){
+   // Verificar la combinación del usuario cuando se presione el botón de comprobar
   comprobarCombinacionUsuario();
   // Avanzar a la siguiente fila después de la comprobación
   avanzarSiguienteFila();
+}
+ 
 });
 
   // Event listener para el botón de reiniciar
