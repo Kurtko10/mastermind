@@ -11,6 +11,8 @@ body {
     height: 100vh;
     /* overflow: hidden; */
 }
+
+/*--------BARRA NAVEGACIÓN-------*/
 #titulo{
     color: #9900ff;
     font-family: 'retroGaming';
@@ -21,7 +23,6 @@ body {
     1px -1px 0 rgb(255, 196, 0),  
     -1px 1px 0 rgb(255, 196, 0),  
     1px 1px 0 rgb(255, 196, 0);
-
 }
 @media (max-width: 600px) { 
     #titulo {
@@ -29,7 +30,6 @@ body {
         margin: 0;
     }
 }
-
 
 .navbar {
     color: transparent;
@@ -62,7 +62,6 @@ body {
     display: none;
 }
 
-
 @media (max-width: 768px) {
     .navbar-brand {
         display: none;
@@ -70,14 +69,13 @@ body {
 
     .navbar-toggler {
         display: block;
-    }
+    }labelUsuari
     #formularioUser{
-        
         max-width: 70%;
         margin-left: 15%;
-       
     }
 }
+
 #opciones{
     font-family: 'retroGaming';
     text-shadow: -1px -1px 0 rgb(255, 255, 255),  
@@ -85,33 +83,35 @@ body {
     -1px 1px 0 rgb(255, 255, 255),  
     1px 1px 0 rgb(255, 255, 255);
 }
+
 .dropdown-menu{
     background-color: #9900ff;
 }
-.boton button a{
-    text-decoration: none;
-}
 
-.gif-button {
+a {text-decoration: none;}
+
+/* .gif-button {
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
     margin: 0;
-    
-}
+} */
+/*-----------GIF MASTERMIND----------*/
 #gifInicio{
     width: 300px;
     height: auto;
 }
+
 #gif{
     position: relative;
     margin-top: 10vh;
     max-width: 30%;
     margin-left: 35%;
 }
-.botonJugar {
-    
+
+/*------------ESTILOS PARA LOS BOTONES--------*/
+.botonJugar, .botonModal, .botonComenzar, .buttonFunction  {
     align-items: center;
     cursor: pointer;
     color: #909090 !important;
@@ -120,91 +120,42 @@ body {
     font-weight: 500;
     padding: 0.5em 1.2em;
     background: #9900ff;
-    
     border: 2px solid #318aac;
     border-radius: 25px;
     outline: 1px solid;
     outline-color: rgba(255, 255, 255, 0.4);
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   }
-  .botonJugar:hover {
-    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
-    outline-color: rgba(253, 253, 253, 0);
-    outline-offset: 80px;
-    text-shadow: 1px 1px 6px #000000; 
-  }
+
+/*-----------Punto control--------*/
   .botonModal{
-    align-items: center;
-    cursor: pointer;
-    color: #909090 !important;
+    
+    color: #e3e3e3 !important;
     font-size: 12px;
     font-family: 'retroGaming';
-    font-weight: 500;
-    padding: 0.5em 1.2em;
-    background: #9900ff;
-    
-    border: 2px solid #318aac;
-    border-radius: 25px;
-    outline: 1px solid;
-    outline-color: rgba(255, 255, 255, 0.4);
-    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  .botonModal:hover {
-    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
-    outline-color: rgba(253, 253, 253, 0);
-    outline-offset: 80px;
-    text-shadow: 1px 1px 6px #000000; 
   }
 
   .botonComenzar {
     top: 0px;
     margin-top: 1em;
-    cursor: pointer;
-    color: #909090 !important;
-    font-size: 20px;
-    font-family: 'retroGaming';
-    font-weight: 500;
-    padding: 0.5em 1.2em;
-    background: #9900ff;
     position: relative;
-    border: 2px solid #318aac;
-    border-radius: 25px;
-    outline: 1px solid;
-    outline-color: rgba(255, 255, 255, 0.4);
-    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  .botonComenzar:hover {
-    box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
-    outline-color: rgba(253, 253, 253, 0);
-    outline-offset: 80px;
-    text-shadow: 1px 1px 6px #000000; 
   }
 
   .buttonFunction{
     top: 0px;
     margin-top: 1em;
-    cursor: pointer;
-    color: #909090 !important;
     font-size: 16px;
-    font-family: 'retroGaming';
-    font-weight: 500;
-    padding: 0.5em 1.2em;
-    background: #9900ff;
     position: relative;
-    border: 2px solid #318aac;
-    border-radius: 25px;
-    outline: 1px solid;
-    outline-color: rgba(255, 255, 255, 0.4);
-    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     margin-bottom: 2px;
   }
-  .buttonFunction:hover{
+  .buttonFunction:hover, .botonComenzar:hover,.botonModal:hover, .botonJugar:hover {
     box-shadow: inset 0 0 20px rgba(115, 0, 169, 0.5), 0 0 20px rgba(1, 98, 136, 0.4);
     outline-color: rgba(253, 253, 253, 0);
     outline-offset: 80px;
     text-shadow: 1px 1px 6px #000000; 
   }
 
+/*------------FORMULARIO USUARIO---------*/
 
   #formularioUser{
     display: flex;
@@ -216,30 +167,35 @@ body {
     padding: 1em;
     align-items: center;
 }
-a{
-    text-decoration: none;
-}
+
 #labelUsuario{
-    
     font-family: 'retroGaming';
     background-color: transparent;
 }
-#labelDificultad{
+.form-floating>.form-control:not(:placeholder-shown)~label::after {
+    background-color: transparent;
+}
+
+#labelDificultad, #dificultad option{
     font-family: 'retroGaming';
 }
-#dificultad option {
+
+/* #dificultad option {
     font-family: 'retroGaming';
-}
+} */
+
 #usuario{
     font-family: 'retroGaming';
     font-size: 1.5em;
     text-align: center;
 }
+
 #colorSelection{
     position: relative;
     /* left: -30px; */
     align-items: center;
 }
+
 #colorOptions input{
     border-radius: 50%;
 }
@@ -247,35 +203,37 @@ a{
 @media (max-width: 768px) {
     
     #formularioUser{
-        
         max-width: 95%;
         margin-left: 2.5%;
-       
     }
+
     #colorOptions {
     max-width: 60%;
     margin-left: 20%;
-}
-#labelUsuario{
+    }
+    #labelUsuario{
     display: none;
+    }
 }
-}
+
+/*---------TABLERO DE JUEGO---------*/
+
 #masterMind{
     background-color: rgba(240, 255, 255, 0.522);
 }
+
 #coloresElegidos{
     display: flex;
     max-width: 100%;
     height: auto;
     justify-content: center;
     margin-bottom: 2em;
-
 }
 #coloresElegidos .color-box:hover{
     border: 3px white solid;
 }
 
-.color-box{
+.color-box{  
     z-index: 1;
     border: 2px solid rgb(0, 0, 0);
     width: 30px;
@@ -283,6 +241,7 @@ a{
     margin: 3px;
     border-radius: 50%;
 }
+
 #coloresElegidos .color-box{
     z-index: 1;
     border: 2px solid rgb(0, 0, 0);
@@ -291,32 +250,24 @@ a{
     margin: 3px;
     border-radius: 50%;
 }
+
 #saludo{
     font-family: 'retroGaming';
     text-align: center;
     font-size: 1.5em;
 }
+
 #mensajeDificultad{
     font-family: 'retroGaming';
     text-align: center;
     text-transform: uppercase;
 }
+
 .tablero{
     justify-content: center;
     align-items: center;
 }
-.modal-dialog{
-    
-    border: 3px outset yellow;
-}
-.modal-content{
-    background-color: rgba(184, 183, 183, 0.946);
-}
-#hasGanadoModalLabel{
-    font-family: 'retroGaming';
-    text-align: center;
-    font-size: 1.5em;
-}
+
 .fallos{
     border: 6px solid black;
 }
@@ -324,12 +275,34 @@ a{
     text-align: center;
     font-weight: bold;
 }
+
+
+/*------------MODAL VICTORIA/DERROTA---------*/
+
+.modal-dialog{
+    
+    border: 3px outset yellow;
+}
+
+.modal-content{
+    background-color: rgba(184, 183, 183, 0.946);
+}
+
+#gameModalLabel{
+    font-family: 'retroGaming';
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/*------------VISTA AYUDA--------*/
+
 .ayuda{
     color: white;
     background-color: #909090bf;
     border: yellow;
     justify-content: center;
 }
+
 .ayuda h1{
     text-align: center;
     text-transform: uppercase;
@@ -342,7 +315,6 @@ a{
     padding: 20px; 
   }
   
-
   .ayuda .row div {
     display: flex; 
     justify-content: center;
@@ -351,7 +323,7 @@ a{
   }
 
 
-footer{
+/* footer{
     top: -100px;
     color: transparent;
     border-bottom: 5px solid rgb(255, 196, 0);
@@ -360,5 +332,5 @@ footer{
     
     color: rgb(255, 196, 0);
     animation: cambio-color 10s infinite alternate;
-}
+} */
 
