@@ -75,9 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tableroJuego.appendChild(tableroElement);
 
     // Agregar evento onclick a los elementos de color después de construir el tablero
-    const elementosColor = document.querySelectorAll(
-      ".color-box.coloresElegidos"
-    );
+    const elementosColor = document.querySelectorAll(".color-box");
 
     const marcarColorFilaActual = (event) => {
       const colorIndex = parseInt(event.target.id.split("-")[1]) - 1;
@@ -87,6 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(`.attempt.row-${filaActualIndex}`)
       );
       console.log(`Has elegido el color ${selectedColor}`);
+      elementosColor.forEach((elemento, index) => {
+        elemento.dataset.index = index; // Asignar el índice como un atributo de datos
+        elemento.addEventListener("click", marcarColorFilaActual);
+      });
     };
 
     elementosColor.forEach((elemento) => {
@@ -116,14 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
             coloresSeleccionados[rowIndex] = [];
           }
           coloresSeleccionados[rowIndex].push(color);
-          
-          contadorClickColor++; 
-          
+
+          contadorClickColor++;
+
           if (contadorClickColor === 4) {
-            verificarFilaCompleta(); 
-            permitirSeleccionColor = false; 
+            verificarFilaCompleta();
+            permitirSeleccionColor = false;
           }
-          break; 
+          break;
         }
       }
     }
@@ -151,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Función para marcar el color seleccionado por el jugador
   const marcarColorFilaActual = (event) => {
-    const colorIndex = parseInt(event.target.id.split("-")[1]) - 1;
+    const colorIndex = parseInt(event.target.dataset.index);
     const selectedColor = colors[colorIndex];
     marcarSeleccionUsuario(
       selectedColor,
@@ -159,12 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     console.log(`Has elegido el color ${selectedColor}`);
   };
-// Evento para escuchar los clics
-  elementosColor.forEach((elemento) => {
-    elemento.addEventListener("click", marcarColorFilaActual);
-  });
 
-// Crea una instancia de un modal de Bootstrap utilizando el ID "gameModal"
+  // Crea una instancia de un modal de Bootstrap utilizando el ID "gameModal"
   const abrirModal = (titulo, mostrarBotones) => {
     const modal = new bootstrap.Modal(document.getElementById("gameModal"));
     const modalTitle = document.querySelector("#gameModal .modal-title");
@@ -194,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         combinacionSecreta
       );
       console.log(combinacionUsuario);
-      console.log("Resultado:", resultado);
+      // console.log("Resultado:", resultado);
 
       // Verificar si el usuario ha ganado
       if (resultado.aciertos === 4) {
@@ -253,22 +251,27 @@ document.addEventListener("DOMContentLoaded", () => {
         copiaSecreta[copiaSecreta.indexOf(color)] = null;
         mapaColores.set(color, mapaColores.get(color) - 1);
 
-        // Agregar mensaje a la consola para indicar una coincidencia
         console.log(`Fila ${filaActualIndex}, Color ${color} - COINCIDENCIA`);
       }
     }
 
-    // Calcular fallos
-    resultado.fallos = 4 - resultado.aciertos - resultado.coincidencias;
-    for (let i = 0; i < resultado.fallos; i++) {
-      resultado.fallosArray.push(i); // Guardamos el índice del color fallo
+    // Verificar fallos basados en la optimización
+    for (let i = 0; i < copiaUsuario.length; i++) {
+      if (
+        copiaUsuario[i] !== null &&
+        !resultado.aciertosArray.includes(i) &&
+        !resultado.coincidenciasArray.includes(i)
+      ) {
+        const color = combinacionUsuario[i];
+        if (!mapaColores.has(color) || mapaColores.get(color) === 0) {
+          resultado.fallos++;
+          resultado.fallosArray.push(i);
+          console.log(
+            `Fila ${filaActualIndex}, Columna ${i}: Color ${combinacionUsuario[i]} - FALLO`
+          );
+        }
+      }
     }
-    // Agregar mensajes de registro para los fallos
-    resultado.fallosArray.forEach((indice) => {
-      console.log(
-        `Fila ${filaActualIndex}, Columna ${indice}: Color ${combinacionUsuario[indice]} - FALLO`
-      );
-    });
 
     // Mensajes para consola
     let mensaje = "";
@@ -301,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Avanzar a la siguiente fila
       filaActualIndex++;
       filaCompleta = false;
-     
+
       elementosColor.forEach((elemento) => {
         elemento.addEventListener("click", marcarColorFilaActual);
       });
